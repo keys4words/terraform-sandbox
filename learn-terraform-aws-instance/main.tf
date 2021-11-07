@@ -11,14 +11,32 @@ terraform {
 
 provider "aws" {
   profile = "default"
-  region  = "us-west-2"
+  region  = "us-east-1"
 }
 
+# EC2 instance
 resource "aws_instance" "app_server" {
-  ami           = "ami-08d70e59c07c61a3a"
+  ami           = "ami-0279c3b3186e54acd"
   instance_type = "t2.micro"
+  user_data = <<-EOF
+              #!/bin/bash
+              echo "Hey, dude!" > index.html
+              nohup busybox httpd -f -p 8080 &
+              EOF
 
   tags = {
     Name = "ExampleAppServerInstance"
   }
+}
+
+resource "aws_security_group" "instance" {
+  name = "terraform-example-instance"
+
+  ingress = [ {
+    cidr_blocks = [ "0.0.0.0/0" ]
+    description = "web traffic"
+    from_port = 8080
+    to_port = 8080
+  } ]
+  
 }
