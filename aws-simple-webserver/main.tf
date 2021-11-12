@@ -21,9 +21,9 @@ provider "aws" {
 
 # EC2 instance
 resource "aws_instance" "app_server" {
-  ami           = "ami-0279c3b3186e54acd"
+  ami           = "ami-04ad2567c9e3d7893"
   instance_type = "t2.micro"
-  vpc_security_group_ids = [aws_security_group.instance.id]
+  vpc_security_group_ids = "sg-0aeb33d951d536ff8" #[aws_security_group.instance.id]
   user_data = <<-EOF
               #!/bin/bash
               echo "Hey, dude!" > index.html
