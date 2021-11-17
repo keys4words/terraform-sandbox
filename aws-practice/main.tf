@@ -130,8 +130,8 @@ resource "aws_security_group" "allow_web" {
 # }
 
 resource "aws_eip" "webserver" {
-  instance = aws_instance.webserver.id
-  vpc                       = true
+  instance = aws_instance.master.id
+  vpc      = true
   #network_interface         = aws_network_interface.mynic.id
   #associate_with_private_ip = "10.0.1.50"
   depends_on = [
@@ -139,37 +139,35 @@ resource "aws_eip" "webserver" {
   ]
 }
 
-resource "aws_key_pair" "mykey" {
-  key_name = "myAwsKey"
-  public_key = ""
+resource "aws_key_pair" "wpc" {
+  key_name   = "wpc"
+  public_key = "${file("//~/.ssh/id_rsa.pub")}"
 }
 
-data "aws_ami" "amazonlinux" {
+data "aws_ami" "ubuntu" {
   most_recent = true
-  
+
   filter {
-    name = "name"
-    values = ["Amazon Linux 2 AMI"]
+    name   = "name"
+    values = ["ubuntu/images/hvm-ssd/ubuntu-bionic-18.04-amd64-server-*"]
   }
 
   filter {
-    name = "virtualization-type"
+    name   = "virtualization-type"
     values = ["hvm"]
   }
-  owners = ["amazon"]
+  owners = ["099720109477"]
 }
 
-# resource "aws_instance" "master" {
-#   ami = "ami-04ad2567c9e3d7893"
-#   instance_type = "t2.micro"
-#   availability_zone = "us-east-1c"
-#   vpc_security_group_ids = ["sg-0aeb33d951d536ff8"]
-#   key_name = "myAwsKey"
+resource "aws_instance" "master" {
+  ami                    = data.aws_ami.ubuntu.id
+  instance_type          = "t2.micro"
+  availability_zone      = "us-east-1c"
+  vpc_security_group_ids = [aws_security_group.allow_web.id]
+  key_name               = aws_key_pair.wpc.key_name
+  subnet_id              = aws_subnet.mysubnet.id
 
-# network_interface {
-#   device_index = 0
-#   network_interface_id = aws_network_interface.mynic.id
-# }
+}
 
 #   user_data = <<-EOF
 #     #!/bin/bash
@@ -184,7 +182,7 @@ data "aws_ami" "amazonlinux" {
 #   }
 # }
 
-# output "public_ip" {
-#   value = aws_instance.master.public_ip
-#   description = "The public IP address of the web server"
-# }
+output "public_ip" {
+  value       = aws_eip.webserver.public_ip
+  description = "The public IP address of the web server"
+}
