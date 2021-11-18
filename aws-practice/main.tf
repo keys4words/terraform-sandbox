@@ -160,7 +160,8 @@ resource "aws_key_pair" "wpc" {
 # }
 
 resource "aws_instance" "master" {
-  ami = "ami-04ad2567c9e3d7893"
+  ami = var.ami_type
+  # count = 2
   # ami                    = data.aws_ami.ubuntu.id
   instance_type          = "t2.micro"
   availability_zone      = "us-east-1c"
