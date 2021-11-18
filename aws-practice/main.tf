@@ -141,26 +141,27 @@ resource "aws_eip" "webserver" {
 
 resource "aws_key_pair" "wpc" {
   key_name   = "wpc"
-  public_key = "${file("//~/.ssh/id_rsa.pub")}"
+  public_key = file("${path.module}/id_rsa.pub")
 }
 
-data "aws_ami" "ubuntu" {
-  most_recent = true
+# data "aws_ami" "ubuntu" {
+#   most_recent = true
 
-  filter {
-    name   = "name"
-    values = ["ubuntu/images/hvm-ssd/ubuntu-bionic-18.04-amd64-server-*"]
-  }
+#   filter {
+#     name   = "name"
+#     values = ["ubuntu/images/hvm-ssd/ubuntu-bionic-18.04-amd64-server-*"]
+#   }
 
-  filter {
-    name   = "virtualization-type"
-    values = ["hvm"]
-  }
-  owners = ["099720109477"]
-}
+#   filter {
+#     name   = "virtualization-type"
+#     values = ["hvm"]
+#   }
+#   owners = ["099720109477"]
+# }
 
 resource "aws_instance" "master" {
-  ami                    = data.aws_ami.ubuntu.id
+  ami = "ami-04ad2567c9e3d7893"
+  # ami                    = data.aws_ami.ubuntu.id
   instance_type          = "t2.micro"
   availability_zone      = "us-east-1c"
   vpc_security_group_ids = [aws_security_group.allow_web.id]
