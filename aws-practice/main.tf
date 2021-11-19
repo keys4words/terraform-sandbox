@@ -161,16 +161,39 @@ resource "aws_key_pair" "wpc" {
 
 resource "aws_instance" "master" {
   ami = var.ami_type
-  # count = 2
   # ami                    = data.aws_ami.ubuntu.id
-  instance_type          = "t2.micro"
-  availability_zone      = "us-east-1c"
+  instance_type          = var.instance_type
+  availability_zone      = var.availability_zone
   vpc_security_group_ids = [aws_security_group.allow_web.id]
   key_name               = aws_key_pair.wpc.key_name
   subnet_id              = aws_subnet.mysubnet.id
 
+  tags = {
+    Name = "master"
+  }
 }
 
+resource "aws_instance" "slave" {
+  ami = var.ami_type
+  count = length(var.vm_names)
+  # ami                    = data.aws_ami.ubuntu.id
+  instance_type          = var.instance_type
+  availability_zone      = var.availability_zone
+  vpc_security_group_ids = [aws_security_group.allow_web.id]
+  key_name               = aws_key_pair.wpc.key_name
+  subnet_id              = aws_subnet.mysubnet.id
+
+  connection {
+    host = self.private_ip
+    type = "ssh"
+    user = "ec2-user"
+    private_key = aws_key_pair.wpc
+  }
+
+  tags = {
+    Name = var.vm_names[count.index]
+  }
+}
 #   user_data = <<-EOF
 #     #!/bin/bash
 #     sudo apt update -y
