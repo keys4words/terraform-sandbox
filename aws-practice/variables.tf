@@ -20,3 +20,16 @@ variable "vm_names" {
   type = list(string)
   default = [ "slave one", "slave two" ]
 }
+
+variable "map_example" {
+  type = map
+  default = {
+    "keyOne" = "value1"
+    "keyTwo" = "value2"
+  }
+
+}
+
+variabl "test_bool" {
+  default = true
+}
