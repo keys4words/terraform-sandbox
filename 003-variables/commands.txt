@@ -1,9 +1,0 @@
-# set as env params  - precedence 4
-export TF_VAR_filename="/root/cats.txt"
-
-# using vars in file terraform.tfvars - precedence 3
-
-# using auto-defined file with name *.auto.tfvars - precedence 2
-
-# using key-value vars file - precedence 1
-terraform apply -var-file myvars.tfvars

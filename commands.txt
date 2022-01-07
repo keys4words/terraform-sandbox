@@ -1,0 +1,37 @@
+# --- precedence ----
+# set as env params  - precedence 4
+export TF_VAR_filename="/root/cats.txt"
+
+# using vars in file terraform.tfvars - precedence 3
+
+# using auto-defined file with name *.auto.tfvars - precedence 2
+
+# using key-value vars file - precedence 1
+terraform apply -var-file myvars.tfvars
+
+
+
+# show current state of terraform configuration
+terraform show -json
+
+# validate
+terraform validate
+
+# formatting file to canonical fomrat
+terraform fmt
+
+# show providers
+terraform providers
+
+# copy providers info to other folder
+terraform providers mirror /path/to/folder
+
+# show output's vars
+terraform output
+
+# sync terraform with current configuration
+terraform refresh
+
+# show visual configuration 4 graphviz
+terraform graph
+
