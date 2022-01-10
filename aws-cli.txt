@@ -1,0 +1,9 @@
+# iam
+aws iam list-users
+aws iam create-user --user-name mary
+aws iam attach-user-policy --user-name mary --policy-arn arn:aws:iam::aws:policy/AdministratorAccess
+aws iam create-group --group-name <group-name>
+aws iam add-user-to-group --user-name <username> --group-name <groupname>
+aws iam list-attached-group-policies --group-name <groupname>
+aws iam list-attached-user-policies --user-name <username>
+aws iam attach-group-policy --group-name <groupname> --policy-arn arn:aws:iam::aws:policy/AmazonEC2FullAccess
