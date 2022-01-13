@@ -35,3 +35,5 @@ terraform refresh
 # show visual configuration 4 graphviz
 terraform graph
 
+# state commands
+tarraform state list/mv/pull/rm/show aws_s3_bucket.name_bucket
