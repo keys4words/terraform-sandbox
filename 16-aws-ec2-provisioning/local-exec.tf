@@ -12,3 +12,12 @@ resource "aws_instance" "app_server" {
     command = "echo ${aws_instance.webserver.public_ip} Destroyed! > /tmp/instance_state.txt"
   }
 }
+
+# elastic ip
+resource "aws_eip" "eip" {
+  vpc = true
+  instance = aws_instance.app_server.ip
+  provisioner "local-exec" {
+      command = "echo ${aws_eip.eip.public_dns} >> /root/cerberus_public_dns.txt"
+  }
+}

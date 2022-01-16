@@ -27,7 +27,7 @@ resource "aws_instance" "app_server" {
 
   # using existing security group
   vpc_security_group_ids = "sg-0aeb33d951d536ff8" #[aws_security_group.instance.id]
-  user_data = file("user_data_ami_1.sh")
+  user_data = file("./user_data_ami_1.sh")
   # user_data = <<-EOF
   #             #!/bin/bash
   #             echo "Hey, dude!" > index.html
