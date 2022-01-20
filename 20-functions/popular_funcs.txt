@@ -1,0 +1,21 @@
+# numeric
+max/min(-1, 2, 100)
+max/min(var.num...)
+ceil/floor(number)
+
+# string
+split("separator", "string"/var.ami) -> return list
+lower/upper/title(var.ami)
+substr(var.ami, offset, length)
+join("separator", [strings])
+
+# collections
+length(var.ami)
+index(var.ami, value_of_element) -> index
+element(var.ami, 2) -> element
+contains(var.ami, "ami-e5345u42") -> true/false
+
+# map funcs
+keys(var.ami) -> list of keys
+values(var.ami)
+lookup(var.ami, "ca-central-1", "default-key") -> value of lookup or default-key

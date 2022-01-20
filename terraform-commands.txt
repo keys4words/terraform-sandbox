@@ -44,3 +44,6 @@ terraform taint/untaint <resource_id>   # aws_instance.name
 # debug
 export TF_LOG=<log_level: {INFO,WARNING,ERROR,DEBUG,TRACE}>
 export TF_LOG_PATH=/tmp/terraform.log
+
+# terraform console
+terraform console
