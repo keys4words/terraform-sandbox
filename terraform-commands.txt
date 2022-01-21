@@ -47,3 +47,8 @@ export TF_LOG_PATH=/tmp/terraform.log
 
 # terraform console
 terraform console
+
+# workspace
+terraform workspace new <project-name>
+terraform workspace list
+terraform workspace select <project-name>
