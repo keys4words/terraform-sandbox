@@ -1,3 +1,0 @@
-variable length {
-  type = number
-}
