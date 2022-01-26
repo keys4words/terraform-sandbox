@@ -13,6 +13,7 @@ join("separator", [strings])
 length(var.ami)
 index(var.ami, value_of_element) -> index
 element(var.ami, 2) -> element
+slice(var.ami, 0, 2) -> sublist
 contains(var.ami, "ami-e5345u42") -> true/false
 
 # map funcs
