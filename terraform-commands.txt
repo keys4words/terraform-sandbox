@@ -9,7 +9,8 @@ export TF_VAR_filename="/root/cats.txt"
 # using key-value vars file - precedence 1
 terraform apply -var-file myvars.tfvars
 
-
+# using one variable in apply
+terraform apply -var my_variable=<variable>
 
 # show current state of terraform configuration
 terraform show -json
