@@ -4,6 +4,7 @@
 # .tfstate files
 *.tfstate
 *.tfstate.*
+authorized_key.json
 
 # Crash log files
 crash.log
