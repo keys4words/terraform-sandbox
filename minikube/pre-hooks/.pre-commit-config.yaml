@@ -1,6 +1,6 @@
 repos:
-- repo: https://github.com/keys4words/terraform-sandbox
-  rev: v1.0.0
+- repo: https://github.com/antonbabenko/pre-commit-terraform
+  rev: v1.82.0 # Get the latest from: https://github.com/antonbabenko/pre-commit-terraform/releases
   hooks:
     - id: terraform_fmt
       #    - id: terraform_docs
